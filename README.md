@@ -1,4 +1,4 @@
 # Lamnidae-extension
-extension thing for Lamnidae.
+tampermonkey extension GUI for Lamnidae.
 
-todo: bypass pixelplace nuking websockets
+# warning: doesnt work on Chromium/Google chrome !!!
