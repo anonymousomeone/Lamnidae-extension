@@ -7,10 +7,10 @@
 // @run-at       document-start
 // @match        https://pixelplace.io/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=pixelplace.io
-// @grant        none
+// @grant none
 // ==/UserScript==
 Object.defineProperty(window.console, 'log', {configurable:false,enumerable:true,writable:false,value:console.log});
-Object.defineProperty(window, 'WebSocket', {configurable:false,enumerable:true,writable:false,value:WebSocket});
+
 class Lamnidae {
     constructor() {
         waitLoad().then(async arr => {
@@ -32,8 +32,10 @@ class Lamnidae {
                 if (ev.target.innerText != tag.innerText) this.unloadTab()
                 else this.loadTab()
             })
+
+            this.setup()
         })
-        connect()
+        this.ws = connect()
     }
 
     loadTab() {
@@ -42,13 +44,55 @@ class Lamnidae {
         this.chatInput.disabled = true
 
         // add data stuffs
-        console.log('Clicked')
     }
 
     unloadTab() {
         this.tag.classList.remove('selected')
         this.div.style = 'display: none'
         this.chatInput.disabled = false
+    }
+
+    setup() {
+        const css = 'background: gray; border: 1px solid white; margin-right: 5px;'
+        var div = document.createElement('div')
+        var inputx = document.createElement('input')
+        div.appendChild(inputx)
+        var inputy = document.createElement('input')
+        div.appendChild(inputy)
+
+        inputx.type = 'text'
+        inputx.placeholder = 'x'
+        inputx.style = 'background: gray; border: 1px solid white; margin-right: 10px;'
+
+        inputy.type = 'text'
+        inputy.placeholder = 'y'
+        inputy.style = 'background: gray; border: 1px solid white;'
+
+        this.div.appendChild(div)
+
+
+        inputx.addEventListener("input", function(event){
+            event.preventDefault()
+        });
+
+        inputy.addEventListener("input", function(event){
+            event.preventDefault()
+        });
+
+        div = document.createElement('div')
+
+        var start = document.createElement('input')
+        div.appendChild(start)
+        var stop = document.createElement('input')
+        div.appendChild(stop)
+
+        start.innerText = 'start'
+        start.type = 'button'
+
+        stop.innerText = 'stop'
+        stop.type = 'button'
+
+        this.div.appendChild(div)
     }
 }
 
@@ -77,12 +121,12 @@ function connect() {
         console.log(event)
     }
     ws.addEventListener('open', () => {
-        const data = { message: 'Hello from the client!' }
-        const json = JSON.stringify(data);
+        const json = "pause sussy baka amogusugvausigaas";
         ws.send(json);
     });
     ws.addEventListener('message', event => {
         const data = JSON.parse(event.data);
         console.log(data);
     });
+    return ws
 }
